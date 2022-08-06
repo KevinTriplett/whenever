@@ -294,6 +294,16 @@ Here are the basic rules:
   1. If a job has a :roles arg but that role isn't in the whenever_roles list,
      that job *will not* be deployed to any server.
 
+### rbenv Integration
+
+`.bash_profile` is executed for login shells and `.bashrc` is executed for interactive non-login shells. So, you'll need to either add the rbenv init line to your `.bash_profile` or modify the `job_template` in your `schedule.rb`. The easiest option is to source your `.bashrc` in your `.bash_profile` like so:
+
+```ruby
+if [ -f ~/.bashrc ]; then
+   source ~/.bashrc
+fi
+```
+
 ### RVM Integration
 
 If your production environment uses RVM (Ruby Version Manager) you will run into a gotcha that causes your cron jobs to hang.  This is not directly related to Whenever, and can be tricky to debug.  Your .rvmrc files must be trusted or else the cron jobs will hang waiting for the file to be trusted.  A solution is to disable the prompt by adding this line to your user rvm file in `~/.rvmrc`
