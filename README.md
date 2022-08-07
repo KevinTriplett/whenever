@@ -296,9 +296,11 @@ Here are the basic rules:
 
 ### rbenv Integration
 
-`.bash_profile` is executed for login shells and `.bashrc` is executed for interactive non-login shells. So, you'll need to either add the rbenv init line to your `.bash_profile` or modify the `job_template` in your `schedule.rb`. The easiest option is to source your `.bashrc` in your `.bash_profile` like so:
+`.bash_profile` is executed for login shells and `.bashrc` is executed for interactive non-login shells. So, you'll need to either add the rbenv init line to your `.bash_profile` or modify the `job_template` in your `schedule.rb`. Since `.bash_profile` takes precedence over `.bashrc`, for accounts that serve as login shells, also source your `.bashrc` in your `.bash_profile` like so:
 
 ```ruby
+eval "$(rbenv init -)"
+
 if [ -f ~/.bashrc ]; then
    source ~/.bashrc
 fi
